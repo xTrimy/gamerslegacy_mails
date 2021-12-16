@@ -36,10 +36,9 @@ Unsubscribe email
             </div>
             @endif
             <!-- General elements -->
-            <form method="POST"
+            <form method="GET"
               class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
-            @csrf
             @if($errors->any())
                 {!! implode('', $errors->all('<div class="text-red-500">:message</div>')) !!}
             @endif

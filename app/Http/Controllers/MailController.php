@@ -49,5 +49,22 @@ class MailController extends Controller
         $mail->save();
         return redirect()->back()->with('success', 'Email has been successfully marked as unsubscribed');
     }
+    public function unsubscribe_()
+    {
+        return view('unsubscribe');
+    }
 
+    public function unsubscribe_email($email)
+    {
+        $mail = Mail::where('mail', $email)->first();
+        if(!$mail){
+            return redirect()->route('unsubscribe')->with('error', 'This email isn\'t registered');
+        }
+        if ($mail->unsubscribed == 1)
+            return redirect()->route('unsubscribe')->with('error', 'Email has already been marked as unsubscribed');
+
+        $mail->unsubscribed = 1;
+        $mail->save();
+        return redirect()->route('unsubscribe')->with('success', 'Email has been successfully marked as unsubscribed');
+    }
 }

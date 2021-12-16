@@ -27,14 +27,15 @@ Route::get('/mails', function () {
     dd($mails);
 });
 
-Route::get('/unsubscribe', [MailController::class,'unsubscribe_view'] );
-Route::post('/unsubscribe', [MailController::class, 'unsubscribe']);
+Route::get( '/unsubscribe/{email}', [MailController::class, 'unsubscribe_email']);
+Route::get('/unsubscribe', [MailController::class, 'unsubscribe_'])->name('unsubscribe');
+// Route::post('/unsubscribe', [MailController::class, 'unsubscribe']);
 
 Route::get('/add', [MailController::class, 'add_mail_view']);
 Route::post('/add', [MailController::class, 'add_mail']);
 
 // Route::get('/setup/campaigners', function () {
-//     // dd('x');
+//     dd('x');
 //     set_time_limit(8000000);
 //     $client = new PostmarkClient(env("POSTMARK_SECRET_CAMP"));
 //     $bounces = $client->getSuppressions()['suppressions'];
@@ -44,11 +45,11 @@ Route::post('/add', [MailController::class, 'add_mail']);
 //     }
 //     $recipients = Mail::where([
 //         ['unsubscribed', 0],
-//         ['mail_list_id', 6],
+//         ['mail_list_id', 5],
 //         ["is_miu_mail", 1],
 //     ])->orderBy('id', 'ASC')->get();
-//     // $recipients = Mail::where([['mail',"mohamed1812470@miuegypt.edu.eg"]])->orderBy('id', 'ASC')->get();
-//     // dd($recipients);
+//     // $recipients = Mail::where([['mail',"mohamed1812470@miuegypt.edu.eg"], ['mail_list_id', 5],])->orderBy('id', 'ASC')->get();
+//     dd($recipients);
 //     foreach ($recipients as $recipient) {
 //         if (in_array($recipient->mail, array_values($emails))) {
 //             continue;
@@ -65,17 +66,16 @@ Route::post('/add', [MailController::class, 'add_mail']);
 //         $sendResult = $client->sendEmailWithTemplate(
 //             "noreply@campaignersmiu.com",
 //             $recipient->mail,
-//             26228954,
+//             26338472,
 //             [
 //                 "name" => ucfirst(explode(' ', $recipient->name)[0]),
 //             ],true,NULL,NULL,NULL,NULL,NULL,NULL,
-//             array(PostmarkAttachment::fromFile(public_path(). '/ticket.png', "ticket-sample.png", "image/png"))
+//             // array(PostmarkAttachment::fromFile(public_path(). '/ticket.png', "ticket-sample.png", "image/png"))
 //         );
 //     }
 // });
 
 // Route::get('/setup', function () {
-//     dd('x');
 //     set_time_limit(8000000);
 //     $client = new PostmarkClient(env("POSTMARK_SECRET"));
 //     $bounces = $client->getSuppressions()['suppressions'];
@@ -89,7 +89,7 @@ Route::post('/add', [MailController::class, 'add_mail']);
 //         ['id',">",3053],
 //         ["is_miu_mail",1],
 //         ])->orderBy('id','ASC')->get();
-//     // $recipients = Mail::where([['mail',"mohamed1812470@miuegypt.edu.eg"]])->orderBy('id', 'ASC')->get();
+//     $recipients = Mail::where([['mail',"mohamed1812470@miuegypt.edu.eg"], ['mail_list_id', 1]])->orderBy('id', 'ASC')->get();
 //     foreach ($recipients as $recipient){
 //         if (in_array($recipient->mail,array_values($emails))){
 //             continue;
@@ -111,6 +111,7 @@ Route::post('/add', [MailController::class, 'add_mail']);
 //                 25747028,
 //                 [
 //                     "name" => $recipient->name,
+//                     "email" => $recipient->mail,
 //                 ]
 //             );
 //         }else{
@@ -120,6 +121,7 @@ Route::post('/add', [MailController::class, 'add_mail']);
 //                 25746033,
 //                 [
 //                     "name" => ucfirst(explode(' ',$recipient->name)[0]),
+//                     "email" => $recipient->mail,
 //                 ]
 //             );
 //         }
