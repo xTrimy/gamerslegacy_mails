@@ -27,7 +27,7 @@ Route::get('/mails', function () {
     dd($mails);
 });
 
-Route::get( '/unsubscribe/{email}', [MailController::class, 'unsubscribe_email']);
+Route::get( '/unsubscribeauto/{email}', [MailController::class, 'unsubscribe_email']);
 Route::get('/unsubscribe', [MailController::class, 'unsubscribe_'])->name('unsubscribe');
 
 Route::get('/unsubscribeauto', [MailController::class, 'unsubscribeauto_view'])->name('unsubscribeauto');
