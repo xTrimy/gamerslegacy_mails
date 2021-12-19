@@ -37,6 +37,14 @@ class MailController extends Controller
         return view('unsubscribe');
     }
 
+    public function unsubscribeauto_view(){
+        return view('unsubscribeauto');
+    }
+
+    public function resubscribe_view(){
+        return view('resubscribe');
+    }
+
     public function unsubscribe(Request $request){
         $request->validate([
             'email'=>"email|exists:mails,mail",
@@ -66,5 +74,19 @@ class MailController extends Controller
         $mail->unsubscribed = 1;
         $mail->save();
         return redirect()->route('unsubscribe')->with('success', 'Email has been successfully marked as unsubscribed');
+    }
+
+    public function resubscribe_email($email)
+    {
+        $mail = Mail::where('mail', $email)->first();
+        if(!$mail){
+            return redirect()->route('resubscribe')->with('error', 'This email isn\'t registered');
+        }
+        if ($mail->unsubscribed == 1)
+            return redirect()->route('resubscribe')->with('error', 'Email has already been marked as resubscribed');
+
+        $mail->unsubscribed = 0;
+        $mail->save();
+        return redirect()->route('resubscribe')->with('success', 'Email has been successfully marked as resubscribed');
     }
 }

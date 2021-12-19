@@ -29,6 +29,9 @@ Route::get('/mails', function () {
 
 Route::get( '/unsubscribe/{email}', [MailController::class, 'unsubscribe_email']);
 Route::get('/unsubscribe', [MailController::class, 'unsubscribe_'])->name('unsubscribe');
+
+Route::get('/unsubscribeauto', [MailController::class, 'unsubscribeauto_view'])->name('unsubscribeauto');
+Route::get('/resubscribe', [MailController::class, 'resubscribe_email'])->name('resubscribe');
 // Route::post('/unsubscribe', [MailController::class, 'unsubscribe']);
 
 Route::get('/add', [MailController::class, 'add_mail_view']);
