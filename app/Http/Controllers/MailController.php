@@ -78,7 +78,7 @@ class MailController extends Controller
         if(!$mail){
             return view('unsubscribeauto', ['error' => 'This email isn\'t registered', 'email' => $email]);
         }
-        if ($mail->unsubscribed == 1)
+        if ($mail->unsubscribed == 0)
         return view('resubscribe', ['error'=> 'Email has already been marked as resubscribed','email' => $email]);
         $mail->unsubscribed = 0;
         $mail->save();
