@@ -23,6 +23,7 @@
 <body>
 <main class="h-full pb-16 overflow-y-auto">
           <div class="container px-6 mx-auto grid justify-center">
+            @if(Session::has('success'))
             <h1
               class="my-6 text-5xl font-semibold text-purple-700 dark:text-gray-200 content-center"
             >
@@ -30,7 +31,25 @@
             </h1>
             
             <h2>Oops! Didn't mean to unsubscribe? <a href="{{route('resubscribe',$email)}}" class="text-purple-600" >Click here</a> to resubscribe to our mailing list.</h2>
-
+            @elseif (Session::has('error'))
+            <div
+              class="flex items-center justify-between px-4 p-2 mb-8 text-sm font-semibold text-red-600 bg-red-100 rounded-lg focus:outline-none focus:shadow-outline-purple"
+            >
+              <div class="flex items-center">
+                <i class="fas fa-check mr-2"></i>
+                <span>{{ Session::get('error') }}</span>
+              </div>
+            </div>
+            @else
+            <div
+              class="flex items-center justify-between px-4 p-2 mb-8 text-sm font-semibold text-red-600 bg-red-100 rounded-lg focus:outline-none focus:shadow-outline-purple"
+            >
+              <div class="flex items-center">
+                <i class="fas fa-check mr-2"></i>
+                <span>Something went wrong!</span>
+              </div>
+            </div>
+            @endif
           </div>
         </main>
 </body>
