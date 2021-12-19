@@ -59,7 +59,7 @@ class MailController extends Controller
     }
     public function unsubscribe_()
     {
-        return view('unsubscribe');
+        return view('unsubscribeauto');
     }
 
     public function unsubscribe_email($email)
