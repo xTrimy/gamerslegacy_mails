@@ -69,7 +69,7 @@ class MailController extends Controller
 
         $mail->unsubscribed = 1;
         $mail->save();
-        return view('unsubscribeauto', ['success' => 'Email has already been marked as unsubscribed', 'email' => $email]);
+        return view('unsubscribeauto', ['success' => 'Email has been marked as unsubscribed', 'email' => $email]);
     }
 
     public function resubscribe_email($email)
@@ -82,6 +82,6 @@ class MailController extends Controller
         return view('resubscribe', ['error'=> 'Email has already been marked as resubscribed','email' => $email]);
         $mail->unsubscribed = 0;
         $mail->save();
-        return view('resubscribe', ['email' => $email]);
+        return view('resubscribe', ['success' => 'Email has been marked as subscribed','email' => $email]);
     }
 }

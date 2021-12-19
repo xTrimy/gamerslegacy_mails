@@ -27,7 +27,7 @@
 
           </div>
           <div class="container px-6 mx-auto grid justify-center">
-            @if(Session::has('success'))
+            @if(isset($success))
             <h1
               class="my-6 text-5xl font-semibold text-purple-700 dark:text-gray-200 content-center"
             >
@@ -35,13 +35,13 @@
             </h1>
             
             <h2>You have resubscribed to our Mailing list</h2>
-            @elseif (Session::has('error'))
+            @elseif (isset($error))
             <div
               class="flex items-center justify-between px-4 p-2 mb-8 text-sm font-semibold text-red-600 bg-red-100 rounded-lg focus:outline-none focus:shadow-outline-purple"
             >
               <div class="flex items-center">
                 <i class="fas fa-check mr-2"></i>
-                <span>{{ Session::get('error') }}</span>
+                <span>{{$error}}</span>
               </div>
             </div>
             @else
