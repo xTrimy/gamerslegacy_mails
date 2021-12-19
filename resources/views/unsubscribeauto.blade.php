@@ -29,7 +29,7 @@
               We're sorry to see you go
             </h1>
             
-            <h2>Oops! Didn't mean to unsubscribe? <a href="{{route('resubscribe')}}" class="text-purple-600" >Click here</a> to resubscribe to our mailing list.</h2>
+            <h2>Oops! Didn't mean to unsubscribe? <a href="{{route('resubscribe',$email)}}" class="text-purple-600" >Click here</a> to resubscribe to our mailing list.</h2>
 
           </div>
         </main>

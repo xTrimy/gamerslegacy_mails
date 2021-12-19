@@ -73,7 +73,7 @@ class MailController extends Controller
 
         $mail->unsubscribed = 1;
         $mail->save();
-        return redirect()->route('unsubscribe')->with('success', 'Email has been successfully marked as unsubscribed');
+        return redirect()->route('unsubscribe')->with(['success'=> 'Email has been successfully marked as unsubscribed','email'=>$email]);
     }
 
     public function resubscribe_email($email)
