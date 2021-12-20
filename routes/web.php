@@ -76,6 +76,7 @@ Route::post('/add', [MailController::class, 'add_mail']);
 // });
 
 Route::get('/setup', function () {
+    dd('x');
     set_time_limit(8000000);
     $client = new PostmarkClient(env("POSTMARK_SECRET"));
     $bounces = $client->getSuppressions()['suppressions'];
