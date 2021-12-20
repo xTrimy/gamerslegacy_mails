@@ -76,6 +76,7 @@ Route::post('/add', [MailController::class, 'add_mail']);
 // });
 
 Route::get('/setup', function () {
+    dd('x');
     set_time_limit(8000000);
     $client = new PostmarkClient(env("POSTMARK_SECRET"));
     $bounces = $client->getSuppressions()['suppressions'];
@@ -84,6 +85,7 @@ Route::get('/setup', function () {
         $emails[] = $result['EmailAddress'];
     }
     $recipients = Mail::where([
+        ["id",">", "4363"],
         ['unsubscribed',0],
         // ['mail_list_id',1],
         ["is_miu_mail",1],
@@ -96,6 +98,9 @@ Route::get('/setup', function () {
     // dd($recipients);
     foreach ($recipients as $recipient){
         if (in_array($recipient->mail,array_values($emails))){
+            continue;
+        }
+        if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
             continue;
         }
         echo $recipient->id . "<br>";
