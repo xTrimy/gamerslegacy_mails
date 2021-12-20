@@ -75,55 +75,40 @@ Route::post('/add', [MailController::class, 'add_mail']);
 //     }
 // });
 
-// Route::get('/setup', function () {
-//     set_time_limit(8000000);
-//     $client = new PostmarkClient(env("POSTMARK_SECRET"));
-//     $bounces = $client->getSuppressions()['suppressions'];
-//     $emails = [];
-//     foreach ($bounces as $result) {
-//         $emails[] = $result['EmailAddress'];
-//     }
-//     $recipients = Mail::where([
-//         ['unsubscribed',0],
-//         ['mail_list_id',1],
-//         ['id',">",3053],
-//         ["is_miu_mail",1],
-//         ])->orderBy('id','ASC')->get();
-//     $recipients = Mail::where([['mail',"mohamed1812470@miuegypt.edu.eg"], ['mail_list_id', 1]])->orderBy('id', 'ASC')->get();
-//     foreach ($recipients as $recipient){
-//         if (in_array($recipient->mail,array_values($emails))){
-//             continue;
-//         }
-//         echo $recipient->id . "<br>";
-//         // $sendResult = $client->sendEmailWithTemplate(
-//         //     "info@gamerslegacy.net",
-//         //     $recipient->mail,
-//         //     25505171,
-//         //     [
-//         //         "name" => $recipient->name,
-//         //     ]
-//         // );
-
-//         if($recipient->name == null){
-//             $sendResult = $client->sendEmailWithTemplate(
-//                 "info@gamerslegacy.net",
-//                 $recipient->mail,
-//                 25747028,
-//                 [
-//                     "name" => $recipient->name,
-//                     "email" => $recipient->mail,
-//                 ]
-//             );
-//         }else{
-//             $sendResult = $client->sendEmailWithTemplate(
-//                 "info@gamerslegacy.net",
-//                 $recipient->mail,
-//                 25746033,
-//                 [
-//                     "name" => ucfirst(explode(' ',$recipient->name)[0]),
-//                     "email" => $recipient->mail,
-//                 ]
-//             );
-//         }
-//     }
-// });
+Route::get('/setup', function () {
+    dd('x');
+    set_time_limit(8000000);
+    $client = new PostmarkClient(env("POSTMARK_SECRET"));
+    $bounces = $client->getSuppressions()['suppressions'];
+    $emails = [];
+    foreach ($bounces as $result) {
+        $emails[] = $result['EmailAddress'];
+    }
+    $recipients = Mail::where([
+        ['unsubscribed',0],
+        ['mail_list_id',1],
+        ["is_miu_mail",1],
+        ])->orderBy('id','ASC')->get();
+    $recipients = Mail::where([['mail',"mohamed1812470@miuegypt.edu.eg"], ['mail_list_id', 1]])->orderBy('id', 'ASC')->get();
+    dd($recipients);
+    foreach ($recipients as $recipient){
+        if (in_array($recipient->mail,array_values($emails))){
+            continue;
+        }
+        echo $recipient->id . "<br>";
+        if($recipient->name == null){
+            $name = "MIU Student";
+        }else{
+            $name = ucfirst(explode(' ', $recipient->name)[0]);
+        }
+            $sendResult = $client->sendEmailWithTemplate(
+                "info@gamerslegacy.net",
+                $recipient->mail,
+                26387885,
+                [
+                    "name" => $name,
+                    "email" => $recipient->mail,
+                ]
+            );
+    }
+})->middleware('auth.base');
