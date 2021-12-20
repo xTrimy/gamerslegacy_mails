@@ -76,7 +76,6 @@ Route::post('/add', [MailController::class, 'add_mail']);
 // });
 
 Route::get('/setup', function () {
-    dd('x');
     set_time_limit(8000000);
     $client = new PostmarkClient(env("POSTMARK_SECRET"));
     $bounces = $client->getSuppressions()['suppressions'];
@@ -100,9 +99,9 @@ Route::get('/setup', function () {
         if (in_array($recipient->mail,array_values($emails))){
             continue;
         }
-        if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
-            continue;
-        }
+        // if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+        //     continue;
+        // }
         echo $recipient->id . "<br>";
         if($recipient->name == null){
             $name = "MIU Student";
