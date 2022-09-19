@@ -22,10 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/mails', function () {
-    $mails = Mail::all()->pluck('mail');
-    dd($mails);
-});
+// Route::get('/mails', function () {
+//     $mails = Mail::all()->pluck('mail');
+//     dd($mails);
+// });
 
 Route::get('/unsubscribe/{email}', [MailController::class, 'unsubscribe_email'])->name('unsubscribe');
 Route::get('/resubscribe/{email}', [MailController::class, 'resubscribe_email'])->name('resubscribe');
@@ -76,7 +76,7 @@ Route::post('/add', [MailController::class, 'add_mail']);
 // });
 
 Route::get('/setup', function () {
-    dd('x');
+    // dd('x');
     set_time_limit(8000000);
     $client = new PostmarkClient(env("POSTMARK_SECRET"));
     $bounces = $client->getSuppressions()['suppressions'];
@@ -85,10 +85,11 @@ Route::get('/setup', function () {
         $emails[] = $result['EmailAddress'];
     }
     $recipients = Mail::where([
-        ["id",">", "4363"],
         ['unsubscribed',0],
+        // ['mail','mohamed1812470@miuegypt.edu.eg']
         // ['mail_list_id',1],
-        ["is_miu_mail",1],
+        // ["is_miu_mail",1],
+        ['id','>','4364'],
         ])->orderBy('id','ASC')->get()->unique(function ($e) {
         return strtolower($e->mail);
     });
@@ -105,16 +106,17 @@ Route::get('/setup', function () {
         // }
         echo $recipient->id . "<br>";
         if($recipient->name == null){
-            $name = "MIU Student";
+            $name = "Player";
+            // $name = "MIUAN";
         }else{
             $name = ucfirst(explode(' ', $recipient->name)[0]);
         }
             $sendResult = $client->sendEmailWithTemplate(
                 "info@gamerslegacy.net",
                 $recipient->mail,
-                26387885,
+                29214711,
                 [
-                    "name" => $name,
+                    // "name" => $name,
                     "email" => $recipient->mail,
                 ]
             );
